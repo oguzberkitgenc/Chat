@@ -48,10 +48,10 @@ namespace Chat
                 if (dr.Read())
                 {
                     this.Hide();
-                    home.kullanici = TUser.Text.ToLower(); ;
+                    home.userName = TUser.Text.ToLower(); ;
                     home.Show();
                 }
-                else
+                else 
                 {
                     MessageBox.Show("Başarısız");
                 }
