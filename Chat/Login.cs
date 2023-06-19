@@ -92,5 +92,10 @@ namespace Chat
             NewUser user = new NewUser();
             user.ShowDialog();
         }
+
+        private void simpleButton1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Henüz aktif değil");
+        }
     }
 }

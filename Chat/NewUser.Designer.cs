@@ -41,6 +41,7 @@
             // 
             // TUser
             // 
+            this.TUser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TUser.Location = new System.Drawing.Point(82, 34);
             this.TUser.Name = "TUser";
             this.TUser.Size = new System.Drawing.Size(189, 20);
@@ -66,10 +67,12 @@
             // 
             // TPass
             // 
+            this.TPass.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TPass.Location = new System.Drawing.Point(82, 60);
             this.TPass.Name = "TPass";
             this.TPass.Size = new System.Drawing.Size(189, 20);
             this.TPass.TabIndex = 2;
+            this.TPass.UseSystemPasswordChar = true;
             // 
             // label3
             // 
@@ -82,6 +85,7 @@
             // 
             // TMail
             // 
+            this.TMail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TMail.Location = new System.Drawing.Point(82, 108);
             this.TMail.Name = "TMail";
             this.TMail.Size = new System.Drawing.Size(189, 20);
@@ -108,10 +112,12 @@
             // 
             // TPassConfirm
             // 
+            this.TPassConfirm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TPassConfirm.Location = new System.Drawing.Point(82, 86);
             this.TPassConfirm.Name = "TPassConfirm";
             this.TPassConfirm.Size = new System.Drawing.Size(189, 20);
             this.TPassConfirm.TabIndex = 7;
+            this.TPassConfirm.UseSystemPasswordChar = true;
             // 
             // NewUser
             // 
@@ -127,7 +133,7 @@
             this.Controls.Add(this.TPass);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TUser);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "NewUser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "NewUser";

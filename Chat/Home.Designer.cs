@@ -158,6 +158,7 @@
             this.simpleButton6.Name = "simpleButton6";
             this.simpleButton6.Size = new System.Drawing.Size(397, 39);
             this.simpleButton6.TabIndex = 5;
+            this.simpleButton6.Click += new System.EventHandler(this.simpleButton6_Click);
             // 
             // BCikis
             // 
@@ -181,6 +182,7 @@
             this.simpleButton4.Name = "simpleButton4";
             this.simpleButton4.Size = new System.Drawing.Size(397, 38);
             this.simpleButton4.TabIndex = 3;
+            this.simpleButton4.Click += new System.EventHandler(this.simpleButton4_Click);
             // 
             // simpleButton3
             // 
@@ -191,6 +193,7 @@
             this.simpleButton3.Name = "simpleButton3";
             this.simpleButton3.Size = new System.Drawing.Size(397, 38);
             this.simpleButton3.TabIndex = 2;
+            this.simpleButton3.Click += new System.EventHandler(this.simpleButton3_Click);
             // 
             // simpleButton2
             // 
@@ -201,6 +204,7 @@
             this.simpleButton2.Name = "simpleButton2";
             this.simpleButton2.Size = new System.Drawing.Size(397, 38);
             this.simpleButton2.TabIndex = 1;
+            this.simpleButton2.Click += new System.EventHandler(this.simpleButton2_Click);
             // 
             // BGonder
             // 
@@ -216,7 +220,7 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 1000;
+            this.timer1.Interval = 250;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick_1);
             // 
             // Home
@@ -227,7 +231,6 @@
             this.CancelButton = this.BCikis;
             this.ClientSize = new System.Drawing.Size(812, 587);
             this.Controls.Add(this.splitContainer1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Home";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Home";

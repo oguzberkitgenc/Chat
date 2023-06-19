@@ -28,6 +28,8 @@ namespace Chat
         int degismismi = 0;
         int karakter = 0;
         string kelimeBol = "";
+        bool ColumnWidth = false;
+
         private void Home_Load(object sender, EventArgs e)
         {
             dt = new DataTable();
@@ -44,32 +46,34 @@ namespace Chat
                 break;
             }
             con2.Close();
-            con2.Open();
-            cmd = new SqlCommand("SELECT [Kullanici],[Mesaj] FROM MESSAGE", con2);
-            dr = cmd.ExecuteReader();
-            drs = null;
-            while (dr.Read())
-            {
-                if (userName != dr[0].ToString())
-                {
-                    drs = dt.NewRow();
-                    drs["Kullanici"] = dr[0].ToString();
-                    drs["Mesaj"] = dr[1].ToString();
-                    dt.Rows.Add(drs);
-                }
-                else
-                {
-                    drs = dt.NewRow();
-                    drs["Kullanici"] = dr[1].ToString();
-                    drs["Mesaj"] = dr[0].ToString();
-                    dt.Rows.Add(drs);
-                }
-            }
-            gridControl1.DataSource = dt;
-            con2.Close();
+            //con2.Open();
+            //cmd = new SqlCommand("SELECT [Kullanici],[Mesaj] FROM MESSAGE", con2);
+            //dr = cmd.ExecuteReader();
+            //drs = null;
+            //while (dr.Read())
+            //{
+            //    if (userName != dr[0].ToString())
+            //    {
+            //        drs = dt.NewRow();
+            //        drs["Kullanici"] = dr[0].ToString();
+            //        drs["Mesaj"] = dr[1].ToString();
+            //        dt.Rows.Add(drs);
+            //    }
+            //    else
+            //    {
+            //        drs = dt.NewRow();
+            //        drs["Kullanici"] = dr[1].ToString();
+            //        drs["Mesaj"] = dr[0].ToString();
+            //        dt.Rows.Add(drs);
+            //    }
+            //}
+            //gridControl1.DataSource = dt;
+            SiraliListele();
+
+            //con2.Close();
+
             gridView1.MoveLast();
-            //gridView1.Columns[0].Visible = false;
-            gridView1.Columns[1].Width = 2;
+            //gridView1.BestFitColumns();
             kontrol = degismismi;
             gridView1.OptionsView.ShowHorizontalLines = DevExpress.Utils.DefaultBoolean.False;
             gridView1.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
@@ -107,20 +111,19 @@ namespace Chat
                 {
                     string kullanici = row["Kullanici"].ToString();
                     string mesaj = row["Mesaj"].ToString();
-
-                    if (userName == kullanici)
-                    {
-                        yeniTablo.Rows.Add(mesaj, kullanici);
-                    }
-                    else
-                    {
-                        yeniTablo.Rows.Add(kullanici, mesaj);
-                    }
+                    //if (userName == kullanici)
+                    //{
+                    yeniTablo.Rows.Add(mesaj, kullanici);
+                    //    ColumnWidth=true;
+                    //}
+                    //else
+                    //{
+                    //    yeniTablo.Rows.Add(kullanici,mesaj);
+                    //}
                 }
                 gridControl1.DataSource = yeniTablo;
-
                 kontrol = degismismi;
-
+                gridView1.Columns[1].Width = 40;
                 gridView1.MoveLast();
             }
         }
@@ -184,21 +187,52 @@ namespace Chat
 
         }
 
+        private void gridView1_RowCellStyle(object sender, RowCellStyleEventArgs e)
+        {
+            GridView view = sender as GridView;
+            string kimmis = Convert.ToString(view.GetRowCellValue(e.RowHandle, "Kullanici"));
+            string kimmis2 = Convert.ToString(view.GetRowCellValue(e.RowHandle, "Mesaj"));
+            if (kimmis == userName || kimmis2 == userName)
+            {
+                e.Appearance.BackColor = Color.FromArgb(200, 200, 200);
+                e.Appearance.BackColor2 = Color.FromArgb(255, 255,255);
+
+            }
+            //else
+            //{
+            //    e.Appearance.BackColor = Color.FromArgb(8, 131, 149);
+            //    e.Appearance.BackColor2 = Color.FromArgb(99, 110, 114);
+            //    e.Appearance.ForeColor = Color.Black;
+            //}
+        }
+
+        private void simpleButton2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Henüz aktif değil");
+        }
+
+        private void simpleButton3_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Henüz aktif değil");
+
+        }
+
+        private void simpleButton4_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Henüz aktif değil");
+
+        }
+
+        private void simpleButton6_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Henüz aktif değil");
+
+        }
+
         private void timer1_Tick_1(object sender, EventArgs e)
         {
             SiraliListele();
 
-        }
-
-        private void gridView1_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
-        {
-            GridView view = sender as GridView;
-            string isim = Convert.ToString(view.GetRowCellValue(e.RowHandle, "Kullanici")).ToLower();
-            if (userName == isim)
-            {
-                e.Appearance.BackColor = Color.FromArgb(100, 92, 170);
-                e.Appearance.BackColor2 = Color.White;
-            }
         }
 
         private void BCikis_Click(object sender, EventArgs e)
