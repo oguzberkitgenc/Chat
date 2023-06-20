@@ -47,9 +47,9 @@ namespace Chat
                 dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
-                    this.Hide();
-                    home.userName = TUser.Text.ToLower(); ;
+                    home.userName = TUser.Text.ToLower();
                     home.Show();
+                    this.Hide();
                 }
                 else 
                 {

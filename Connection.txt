@@ -1,0 +1,1 @@
+Data Source=BERKIT\MAVIBILISIM,49212;Initial Catalog=Chat;User ID=sa;Password=M@vißi1i$imV€D@ni$m@n1ikHizm€t1€ri2005S@;Integrated Security=False
