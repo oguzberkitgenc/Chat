@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,26 +19,18 @@ namespace Chat.Islemler
         SqlConnection connection; //sql komudu
         Connection bgl; // class komudu
         Home home;
-
-        /// <summary>
-        /// Yeni bir veri var mı kontrol eder
-        /// </summary>
-        /// <param name="_kontrol"></param>
-        /// <returns></returns>
-        public static int HomeLoad(int _kontrol)
+        public void UyeOl(string user, string pass, string mail)
         {
-            Connection bgl = new Connection();
-            SqlConnection connection = new SqlConnection(bgl.Adres);
+            bgl = new Connection();
+            connection = new SqlConnection(bgl.Adres);
             connection.Open();
-            SqlCommand cmd = new SqlCommand("SELECT [S] FROM SAY", connection);
-            SqlDataReader dr = cmd.ExecuteReader();
-            while (dr.Read())
-            {
-                _kontrol = Convert.ToInt16(dr[0]);
-                break;
-            }
+            SqlCommand cmd = new SqlCommand("INSERT INTO USERS (UserName,Password,Mail) VALUES (@P1,@P2,@P3)", connection);
+            cmd.Parameters.AddWithValue("@p1", user);
+            cmd.Parameters.AddWithValue("@p2", pass);
+            cmd.Parameters.AddWithValue("@p3", mail);
+            cmd.ExecuteNonQuery();
             connection.Close();
-            return _kontrol;
+            MessageBox.Show("Kayıt Tamamlandı");
         }
         public void GirisYap(string user, string pass)
         {
@@ -100,6 +93,22 @@ namespace Chat.Islemler
                 MessageBox.Show(ex.ToString());
             }
         }
+        public static int HomeLoad(int _kontrol)
+        {
+            Connection bgl = new Connection();
+            SqlConnection connection = new SqlConnection(bgl.Adres);
+            connection.Open();
+            SqlCommand cmd = new SqlCommand("SELECT [S] FROM SAY", connection);
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                _kontrol = Convert.ToInt16(dr[0]);
+                break;
+            }
+            connection.Close();
+            return _kontrol;
+        }
+
         public static DataTable Listeleme(int kontrol)
         {
             Connection bgl = new Connection();
@@ -109,6 +118,7 @@ namespace Chat.Islemler
             SqlCommand cmd = new SqlCommand("SELECT [S] FROM SAY", con);
             int degismismi = Convert.ToInt32(cmd.ExecuteScalar());
             con.Close();
+
             if (kontrol != degismismi)
             {
                 con.Open();
@@ -117,11 +127,11 @@ namespace Chat.Islemler
                 SqlDataReader dr = cmd.ExecuteReader();
                 DataTable dt = new DataTable();
                 dt.Load(dr);
-                //gridControl1.DataSource = dt;
                 con.Close();
                 kontrol = degismismi;
                 return dt;
             }
+
             else
             {
                 return null;

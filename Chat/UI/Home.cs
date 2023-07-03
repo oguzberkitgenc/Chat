@@ -25,9 +25,11 @@ namespace Chat
         int degismismi = 0;
         private void Home_Load(object sender, EventArgs e)
         {
-            timer1.Start();
             kontrol = DML.HomeLoad(kontrol);
+
             gridControl1.DataSource = DML.Listeleme(kontrol);
+
+            timer1.Start();
             gridView1.MoveLast();
             kontrol = degismismi;
             gridView1.OptionsView.ShowHorizontalLines = DevExpress.Utils.DefaultBoolean.False;
@@ -67,11 +69,11 @@ namespace Chat
         private void simpleButton6_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Henüz aktif değil");
-
         }
         private void timer1_Tick_1(object sender, EventArgs e)
         {
             gridControl1.DataSource = DML.Listeleme(kontrol);
+
             gridView1.Columns[1].Width = 40;
             gridView1.MoveLast();
         }
