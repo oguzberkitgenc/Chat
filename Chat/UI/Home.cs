@@ -72,6 +72,19 @@ namespace Chat
         }
         private void timer1_Tick_1(object sender, EventArgs e)
         {
+            kontrol = DML.HomeLoad(kontrol);
+            if (kontrol != degismismi)
+            {
+                con.Open();
+                // MESSAGE tablosundan verileri al
+                cmd = new SqlCommand("SELECT [Mesaj], [Kullanici] FROM MESSAGE", con);
+                SqlDataReader dr = cmd.ExecuteReader();
+                DataTable dt = new DataTable();
+                dt.Load(dr);
+                con.Close();
+                kontrol = degismismi;
+                return dt;
+            }
             gridControl1.DataSource = DML.Listeleme(kontrol);
 
             gridView1.Columns[1].Width = 40;
