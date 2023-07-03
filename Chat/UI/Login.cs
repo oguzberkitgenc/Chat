@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Chat.Islemler;
+using System;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Windows.Forms;
@@ -12,11 +13,7 @@ namespace Chat
             InitializeComponent();
 
         }
-        Connection con = new Connection();
-        SqlConnection connection;
-        SqlCommand cmd;
-        SqlDataReader dr;
-        Home home;
+        DML listLogin;
         Random r = new Random();
         int press = 0;
         void RenkDegis()
@@ -34,34 +31,11 @@ namespace Chat
 
         private void BGiris_Click(object sender, EventArgs e)
         {
-            try
-            {
-                home = new Home();
-                connection = new SqlConnection(con.Adres);
-                connection.Open();
-                cmd = new SqlCommand();
-                cmd.CommandText = "SELECT * FROM Users WHERE UserName=@p1 AND Password=@p2";
-                cmd.Connection = connection;
-                cmd.Parameters.AddWithValue("@p1", TUser.Text);
-                cmd.Parameters.AddWithValue("@p2", TPass.Text);
-                dr = cmd.ExecuteReader();
-                if (dr.Read())
-                {
-                    home.userName = TUser.Text.ToLower();
-                    home.Show();
-                    this.Hide();
-                }
-                else 
-                {
-                    MessageBox.Show("Başarısız");
-                }
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.ToString());
-            }
-
+            listLogin = new DML();
+            string u = TUser.Text.ToString();
+            string p = TPass.Text.ToString();
+            listLogin.GirisYap(TUser.Text,TPass.Text);
+            this.Hide();
         }
 
         private void TUser_KeyPress(object sender, KeyPressEventArgs e)

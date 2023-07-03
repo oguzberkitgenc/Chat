@@ -161,8 +161,6 @@
         }
 
         #endregion
-
-        private GradientPAnel gradientPAnel1;
         private System.Windows.Forms.TextBox TPass;
         private System.Windows.Forms.TextBox TUser;
         private DevExpress.XtraEditors.SimpleButton BGiris;
@@ -171,5 +169,6 @@
         private System.Windows.Forms.Timer timer1;
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraEditors.SimpleButton simpleButton2;
+        private GradientPAnel gradientPAnel1;
     }
 }
