@@ -21,17 +21,27 @@ namespace Chat
         }
         DML listLogin;
         public string userName = "";
-        int kontrol = 0;
-        int degismismi = 0;
+        int baksay, kontrolet;
+        bool ilkAcilis;
         private void Home_Load(object sender, EventArgs e)
         {
-            kontrol = DML.HomeLoad(kontrol);
 
-            gridControl1.DataSource = DML.Listeleme(kontrol);
+            //Connection bgl = new Connection();
+            //SqlConnection connection = new SqlConnection(bgl.Adres);
+            //ilkAcilis = true;
+            //connection.Open();
+            //SqlCommand cmd = new SqlCommand("SELECT [S] FROM SAY", connection);
+            //SqlDataReader dr = cmd.ExecuteReader();
+            //while (dr.Read())
+            //{
+            //    baksay = Convert.ToInt16(dr[0]);
+            //}
+            //connection.Close();
+            ilkAcilis = true;
+            baksay = DML.HomeLoad();
 
             timer1.Start();
-            gridView1.MoveLast();
-            kontrol = degismismi;
+
             gridView1.OptionsView.ShowHorizontalLines = DevExpress.Utils.DefaultBoolean.False;
             gridView1.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
         }
@@ -45,8 +55,7 @@ namespace Chat
         {
             GridView view = sender as GridView;
             string kimmis = Convert.ToString(view.GetRowCellValue(e.RowHandle, "Kullanici"));
-            string kimmis2 = Convert.ToString(view.GetRowCellValue(e.RowHandle, "Mesaj"));
-            if (kimmis == userName || kimmis2 == userName)
+            if (kimmis == userName)
             {
                 e.Appearance.BackColor = Color.FromArgb(200, 200, 200);
                 e.Appearance.BackColor2 = Color.FromArgb(255, 255, 255);
@@ -64,31 +73,53 @@ namespace Chat
         private void simpleButton4_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Henüz aktif değil");
-
         }
         private void simpleButton6_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Henüz aktif değil");
         }
+        void Listele()
+        {
+
+        }
         private void timer1_Tick_1(object sender, EventArgs e)
         {
-            kontrol = DML.HomeLoad(kontrol);
-            if (kontrol != degismismi)
+            Connection bgl = new Connection();
+            SqlConnection con = new SqlConnection(bgl.Adres);
+            if (ilkAcilis == false)
             {
                 con.Open();
-                // MESSAGE tablosundan verileri al
-                cmd = new SqlCommand("SELECT [Mesaj], [Kullanici] FROM MESSAGE", con);
+                SqlCommand cmd2 = new SqlCommand("SELECT [S] FROM SAY", con);
+                kontrolet = Convert.ToInt32(cmd2.ExecuteScalar());
+                con.Close();
+                if (baksay != kontrolet)
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT [Mesaj], [Kullanici] FROM MESSAGE", con);
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    DataTable dt = new DataTable();
+                    dt.Load(dr);
+                    con.Close();
+                    baksay = kontrolet;
+                    gridControl1.DataSource = dt;
+                    gridView1.Columns[1].Width = 40;
+                    gridView1.MoveLast();
+                }
+            }
+            else
+            {
+                SqlCommand cmd = new SqlCommand("SELECT [Mesaj], [Kullanici] FROM MESSAGE", con);
+                con.Open();
                 SqlDataReader dr = cmd.ExecuteReader();
                 DataTable dt = new DataTable();
                 dt.Load(dr);
+                gridView1.MoveLast();
                 con.Close();
-                kontrol = degismismi;
-                return dt;
+                gridControl1.DataSource = dt;
+                gridView1.Columns[1].Width = 40;
+                gridView1.MoveLast();
+                ilkAcilis = false;
             }
-            gridControl1.DataSource = DML.Listeleme(kontrol);
-
-            gridView1.Columns[1].Width = 40;
-            gridView1.MoveLast();
         }
         private void BCikis_Click(object sender, EventArgs e)
         {

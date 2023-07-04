@@ -19,6 +19,7 @@ namespace Chat.Islemler
         SqlConnection connection; //sql komudu
         Connection bgl; // class komudu
         Home home;
+
         public void UyeOl(string user, string pass, string mail)
         {
             bgl = new Connection();
@@ -58,7 +59,6 @@ namespace Chat.Islemler
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.ToString());
             }
         }
@@ -93,8 +93,9 @@ namespace Chat.Islemler
                 MessageBox.Show(ex.ToString());
             }
         }
-        public static int HomeLoad(int _kontrol)
+        public static int HomeLoad()
         {
+            int algonder=0;
             Connection bgl = new Connection();
             SqlConnection connection = new SqlConnection(bgl.Adres);
             connection.Open();
@@ -102,40 +103,10 @@ namespace Chat.Islemler
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                _kontrol = Convert.ToInt16(dr[0]);
-                break;
+                algonder = Convert.ToInt16(dr[0]);
             }
             connection.Close();
-            return _kontrol;
-        }
-
-        public static DataTable Listeleme(int kontrol)
-        {
-            Connection bgl = new Connection();
-            SqlConnection con = new SqlConnection(bgl.Adres);
-            con.Open();
-            // Değişiklik kontrolü için mevcut değeri al
-            SqlCommand cmd = new SqlCommand("SELECT [S] FROM SAY", con);
-            int degismismi = Convert.ToInt32(cmd.ExecuteScalar());
-            con.Close();
-
-            if (kontrol != degismismi)
-            {
-                con.Open();
-                // MESSAGE tablosundan verileri al
-                cmd = new SqlCommand("SELECT [Mesaj], [Kullanici] FROM MESSAGE", con);
-                SqlDataReader dr = cmd.ExecuteReader();
-                DataTable dt = new DataTable();
-                dt.Load(dr);
-                con.Close();
-                kontrol = degismismi;
-                return dt;
-            }
-
-            else
-            {
-                return null;
-            }
+            return algonder;
         }
     }
 }
