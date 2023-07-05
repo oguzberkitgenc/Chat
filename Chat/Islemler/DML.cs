@@ -95,7 +95,7 @@ namespace Chat.Islemler
         }
         public static int HomeLoad()
         {
-            int algonder=0;
+            int algonder = 0;
             Connection bgl = new Connection();
             SqlConnection connection = new SqlConnection(bgl.Adres);
             connection.Open();

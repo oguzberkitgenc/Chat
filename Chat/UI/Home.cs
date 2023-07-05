@@ -1,4 +1,5 @@
 ﻿using Chat.Islemler;
+using Chat.UI;
 using DevExpress.XtraGrid.Views.Grid;
 using System;
 using System.Collections.Generic;
@@ -20,23 +21,12 @@ namespace Chat
             InitializeComponent();
         }
         DML listLogin;
+        PrivaMessage privaMessage;
         public string userName = "";
         int baksay, kontrolet;
         bool ilkAcilis;
         private void Home_Load(object sender, EventArgs e)
         {
-
-            //Connection bgl = new Connection();
-            //SqlConnection connection = new SqlConnection(bgl.Adres);
-            //ilkAcilis = true;
-            //connection.Open();
-            //SqlCommand cmd = new SqlCommand("SELECT [S] FROM SAY", connection);
-            //SqlDataReader dr = cmd.ExecuteReader();
-            //while (dr.Read())
-            //{
-            //    baksay = Convert.ToInt16(dr[0]);
-            //}
-            //connection.Close();
             ilkAcilis = true;
             baksay = DML.HomeLoad();
 
@@ -78,10 +68,6 @@ namespace Chat
         {
             MessageBox.Show("Henüz aktif değil");
         }
-        void Listele()
-        {
-
-        }
         private void timer1_Tick_1(object sender, EventArgs e)
         {
             Connection bgl = new Connection();
@@ -104,6 +90,7 @@ namespace Chat
                     gridControl1.DataSource = dt;
                     gridView1.Columns[1].Width = 40;
                     gridView1.MoveLast();
+
                 }
             }
             else
@@ -121,6 +108,16 @@ namespace Chat
                 ilkAcilis = false;
             }
         }
+
+        private void gridView1_DoubleClick(object sender, EventArgs e)
+        {
+            string sec = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "Kullanici").ToString();
+            privaMessage = new PrivaMessage();
+            privaMessage.userName = userName;
+            privaMessage.Text = Convert.ToString(userName + " > " + sec);
+            privaMessage.Show();
+        }
+
         private void BCikis_Click(object sender, EventArgs e)
         {
             Application.Exit();
