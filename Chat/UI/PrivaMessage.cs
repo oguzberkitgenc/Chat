@@ -52,23 +52,28 @@ namespace Chat.UI
             SqlCommand cmd = new SqlCommand("SELECT [UserName],[Message],[DateTime] FROM PrivateMEssage", connection);
             SqlDataReader dr = cmd.ExecuteReader();
             DataTable dt = new DataTable();
-            dt.Columns.Add("UserName", typeof(string));
-            dt.Columns.Add("Message", typeof(string));
-            dt.Columns.Add("DateTime", typeof(string));
+            dt.Columns.Add("Tablo", typeof(string));
             while (dr.Read())
             {
+                int i = 0;
                 DataRow row = dt.NewRow();
-                row["UserName"] = dr[0].ToString();
-
-                if (dr[0].ToString() == "1")
+                string ilisimial = dr[0].ToString();
+                //normal bir şekilde yaz
+                string ikinciismial = "";
+                if (ilisimial != ikinciismial) //Ahmetten sonra mehmet gelirse 1. adım
                 {
-                    row["Message"] = dr[1].ToString();
-                    row["DateTime"] = dr[2].ToString();
+                    row["Tablo"] = dr[0].ToString();
+                    row["Tablo"] = dr[1].ToString();
+                    i = 0; //sıra bozulursa tekrar ismi yaz 4. adım
                 }
-                else
-                {
-                    row["Message"] = dr[1].ToString();
-                    row["DateTime"] = dr[2].ToString();
+                else // ahmet üst üste gelirse 2.adım
+                {       // ilk ahmetin adını yaz sonraki ahmetlerin adını yazma  3.adım
+                    row["Tablo"] = dr[0].ToString();
+                    i = 1;
+                    if (i == 1)
+                    {
+                        row["Tablo"] = dr[1].ToString();
+                    }
                 }
                 dt.Rows.Add(row);
             }
